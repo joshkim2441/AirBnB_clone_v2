@@ -1,3 +1,6 @@
+-- Creates a MySQL server with hbnb_dev_db
+-- Database
+
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 CREATE USER
     IF NOT EXISTS 'hbnb_dev'@'localhost'
