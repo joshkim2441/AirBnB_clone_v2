@@ -23,7 +23,6 @@ classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
 
-
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
 
@@ -54,7 +53,7 @@ test_file_storage.py'])
         """ Remove storage file at end of tests """
         try:
             os.remove('file.json')
-        except:
+        except Exception:
             pass
 
     def test_obj_list_empty(self):

@@ -21,7 +21,7 @@ db = os.getenv('HBNB_MYSQL_DB')
 env = os.getenv('HBNB_ENV')
 
 classes = {"Amenity": Amenity, "Review": Review, "Place": Place,
-            "State": State, "City": City, "User": User}
+           "State": State, "City": City, "User": User}
 
 
 class DBStorage:

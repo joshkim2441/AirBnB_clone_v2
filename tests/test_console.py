@@ -1,6 +1,7 @@
 import unittest
 from console import HBNBCommand
 
+
 class TestDoCreate(unittest.TestCase):
     def setUp(self):
         self.cli = HBNBCommand()
