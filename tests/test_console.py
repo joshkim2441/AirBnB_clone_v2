@@ -1,4 +1,8 @@
+#!/usr/bin/python3
+""" Defines console unittests """
 import unittest
+import pep8
+from io import StringIO
 from console import HBNBCommand
 
 
@@ -23,6 +27,12 @@ class TestDoCreate(unittest.TestCase):
         obj = list(self.cli.storage.all().value())[0]
         self.assertEqual(obj.name, "Test")
         self.assertEqual(obj.number, 1.23)
+
+    def testPep8(self):
+        """ Test for pep8 code style """
+        code_sty = pep8.StyleGuide(quiet=True)
+        pyc = code_sty.check_files(["console.py"])
+        self.assertEqual(pyc.total_errors, 0, "fix pep8")
 
 
 if __name__ == "__main__":
