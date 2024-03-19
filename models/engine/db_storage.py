@@ -19,7 +19,6 @@ pwd = os.getenv('HBNB_MYSQL_PWD')
 host = os.getenv('HBNB_MYSQL_HOST')
 db = os.getenv('HBNB_MYSQL_DB')
 env = os.getenv('HBNB_ENV')
-
 classes = {"Amenity": Amenity, "Review": Review, "Place": Place,
            "State": State, "City": City, "User": User}
 
