@@ -68,6 +68,49 @@ class TestDoCreate(unittest.TestCase):
         pyc = code_sty.check_files(["console.py"])
         self.assertEqual(pyc.total_errors, 0, "fix pep8")
 
+    def test_docstrings(self):
+        """Check for docstrings."""
+        self.assertIsNotNone(HBNBCommand.__doc__)
+        self.assertIsNotNone(HBNBCommand.emptyline.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_quit.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_EOF.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_create.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_show.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_destroy.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_all.__doc__)
+        self.assertIsNotNone(HBNBCommand.do_update.__doc__)
+        self.assertIsNotNone(HBNBCommand.count.__doc__)
+        self.assertIsNotNone(HBNBCommand.strip_clean.__doc__)
+        self.assertIsNotNone(HBNBCommand.default.__doc__)
+
+    def test_emptyline(self):
+        """Test empty line input."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("\n")
+            self.assertEqual("", f.getvalue())
+
+     def test_quit(self):
+        """Test quit command input."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("quit")
+            self.assertEqual("", f.getvalue())
+
+    def test_EOF(self):
+        """Test that EOF quits."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.assertTrue(self.HBNB.onecmd("EOF"))
+
+    def test_create_errors(self):
+        """Test create command errors."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create")
+            self.assertEqual(
+                "** class name missing **\n", f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create asdfsfsd")
+            self.assertEqual(
+                "** class doesn't exist **\n", f.getvalue())
+
     @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
     def testCreate(self):
         """ Test the create command """
