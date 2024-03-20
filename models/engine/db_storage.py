@@ -14,7 +14,7 @@ from models.state import State
 from models.city import City
 from models.user import User
 
-user = os.getenv('NBNB_MYSQL_USER')
+user = os.getenv('HBNB_MYSQL_USER')
 pwd = os.getenv('HBNB_MYSQL_PWD')
 host = os.getenv('HBNB_MYSQL_HOST')
 db = os.getenv('HBNB_MYSQL_DB')
@@ -40,14 +40,18 @@ class DBStorage:
 
     def all(self, cls=None):
         """ Method to return a dictionary of objects """
-        newDict = {}
-        for clss in classes:
-            if cls is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    newDict[key] = obj
-        return (newDict)
+        if cls is None:
+            objs = self.__session.query(State).all()
+            objs.extend(self.__session.query(City).all())
+            objs.extend(self.__session.query(User).all())
+            objs.extend(self.__session.query(Place).all())
+            objs.extend(self.__session.query(Review).all())
+            objs.extend(self.__session.query(Amenity).all())
+        else:
+            if type(cls) == str:
+                cls = eval(cls)
+            objs = self.__session.query(cls)
+        return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
 
     def new(self, obj):
         """ Inserts the object to current database session """

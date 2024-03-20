@@ -5,13 +5,14 @@ from os import getenv
 from models.city import City
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import ForeignKey
 
 
 class State(BaseModel, Base):
     """ Representation of a State class """
 
-    __tablename__ = 'states'
+    __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state", cascade="delete")
 
