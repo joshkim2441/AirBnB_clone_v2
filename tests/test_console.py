@@ -30,7 +30,7 @@ class TestDoCreate(unittest.TestCase):
         except IOError:
             pass
         del cls.HBNB
-        if type(models.storage) == DBStorage:
+        if isinstance(models.storage, DBStorage):
             models.storage._DBStorage__session.close()
 
     def setUp(self):
@@ -89,7 +89,7 @@ class TestDoCreate(unittest.TestCase):
             self.HBNB.onecmd("\n")
             self.assertEqual("", f.getvalue())
 
-     def test_quit(self):
+    def test_quit(self):
         """Test quit command input."""
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("quit")
@@ -111,7 +111,8 @@ class TestDoCreate(unittest.TestCase):
             self.assertEqual(
                 "** class doesn't exist **\n", f.getvalue())
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(isinstance(models.storage, DBStorage
+                                ), "Testing DBStorage")
     def testCreate(self):
         """ Test the create command """
         with patch("sys.stdout", new=StringIO()) as f:
@@ -157,7 +158,8 @@ class TestDoCreate(unittest.TestCase):
             self.HBNB.onecmd("all Amenity")
             self.assertIn(amt, f.getvalue())
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(isinstance(models.storage, DBStorage
+                                ), "Testing DBStorage")
     def testCreate_kwargs(self):
         """ Test the create command using kwargs """
         with patch("sys.stdout", new=StringIO()) as f:
@@ -213,7 +215,8 @@ class TestDoCreate(unittest.TestCase):
             self.assertEqual(
                 "** no instance found **\n", f.getvalue())
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(isinstance(models.storage, DBStorage
+                                ), "Testing DBStorage")
     def testAll(self):
         """ Test the all command input """
         with patch("sys.stdout", new=StringIO()) as f:
@@ -224,7 +227,8 @@ class TestDoCreate(unittest.TestCase):
             self.HBNB.onecmd("all State")
             self.assertEqual("[]\n", f.getvalue())
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(isinstance(models.storage, DBStorage
+                                ), "Testing DBStorage")
     def testUpdate(self):
         """ Test the update command """
         with patch("sys.stdout", new=StringIO()) as f:
@@ -256,7 +260,8 @@ class TestDoCreate(unittest.TestCase):
             self.assertEqual(
                 "** value missing **\n", f.getvalue())
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(isinstance(models.storage, DBStorage
+                                ), "Testing DBStorage")
     def test_z_all(self):
         """Test alternate all command."""
         with patch("sys.stdout", new=StringIO()) as f:
@@ -267,9 +272,10 @@ class TestDoCreate(unittest.TestCase):
             self.HBNB.onecmd("State.all()")
             self.assertEqual("[]\n", f.getvalue())
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(isinstance(models.storage, DBStorage
+                                ), "Testing DBStorage")
     def test_z_count(self):
-        """Test count command inpout"""
+        """Test count command input"""
         with patch('sys.stdout', new=StringIO()) as f:
             self.HBNB.onecmd("asdfsdfsd.count()")
             self.assertEqual(
@@ -300,7 +306,8 @@ class TestDoCreate(unittest.TestCase):
             self.assertEqual(
                 "** no instance found **\n", f.getvalue())
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(isinstance(models.storage, DBStorage
+                                ), "Testing DBStorage")
     def test_update(self):
         """Test alternate destroy command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:

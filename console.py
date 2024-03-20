@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+from shlex import split
 from models.__init__ import storage
 from models.base_model import BaseModel, Base
 from models.user import User
@@ -167,7 +168,6 @@ class HBNBCommand(cmd.Cmd):
         except KeyError:
             print("** no instance found **")
 
-
     def help_show(self):
         """ Help information for the show command """
         print("Shows an individual instance of a class")
@@ -198,7 +198,6 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         except KeyError:
             print("** no instance found **")
-
 
     def help_destroy(self):
         """ Help information for the destroy command """
@@ -254,7 +253,7 @@ class HBNBCommand(cmd.Cmd):
             if not args:
                 raise SyntaxError()
             my_list = split(args, " ")
-            if my_lisst[0] not in self.__classes:
+            if my_list[0] not in self.__classes:
                 raise NameError()
             if len(my_list) < 2:
                 raise IndexError()
@@ -328,8 +327,6 @@ class HBNBCommand(cmd.Cmd):
                     self.do_update(args)
         else:
             cmd.Cmd.default(self, line)
-
-
 
     def help_update(self):
         """ Help information for the update class """
