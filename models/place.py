@@ -9,12 +9,12 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table
 
 place_amenity = Table('place_amenity', Base.metadata,
-                    Column('place_id', String(60),
-                           ForeignKey('places.id'),
-                           primary_key=True, nullable=False),
-                    Column('amenity_id', String(60),
-                           ForeignKey('amenities.id'),
-                           primary_key=True, nullable=False))
+                      Column('place_id', String(60),
+                             ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -50,9 +50,9 @@ class Place(BaseModel, Base):
         def amenities(self):
             """ Getter attr that returns list of Amanity instances """
             amenity_list = []
-            for value in models.storage.all(Amenity).values():
-                if value.id in self.amenity_ids:
-                    amenity_list.append(value)
+            for amenity in models.storage.all(Amenity).values():
+                if amenity.id in self.amenity_ids:
+                    amenity_list.append(amenity)
             return amenity_list
 
         @amenities.setter
@@ -60,6 +60,5 @@ class Place(BaseModel, Base):
             """ Setter attr that handles append method to
             add an Amenity to the attr amenity_ids
             """
-            if type(value) is Amenity:
-                if value.id not in self.amenity_ids:
-                    self.amenity_ids.append(value.id)
+            if isinstance(value, Amenity):
+                self.amenity_ids.append(value.id)
