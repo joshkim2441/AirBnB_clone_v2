@@ -176,7 +176,7 @@ class TestDoCreate(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("all blahblah")
             self.assertEqual(
-            "** class doesn't exist **\n", f.getvalue())
+                "** class doesn't exist **\n", f.getvalue())
         with patch("sys.stdout", new=StringIO()) as f:
             self.HBNB.onecmd("all State")
             self.assertEqual("[]\n", f.getvalue())
