@@ -1,10 +1,11 @@
-#1/usr/bin/env bash
+#!/usr/bin/env bash
 # Generates a .tgz archive from the contents of web_static
 # folder of AirBnB Clone repo using the function do_pack
 
 from os.path import isdir
 from fabric.api import *
 from datetime import datetime
+
 
 def do_pack():
     """ Generates a .tgz archive from contents
