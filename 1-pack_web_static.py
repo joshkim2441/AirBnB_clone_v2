@@ -16,7 +16,7 @@ def do_pack():
     if os.path.isdir("versions") is False:
         local("mkdir versions")
     file_path = "versions/web_static_{}{}{}{}{}{}.tgz".format(tm_ft)
-    archize_size = os.stat(tm_ft).st_size
+    archize_size = os.stat(file_path).st_size
     result = local("tar -cvzf {} web_static".format(file_path))
     print("web_static packed: {} -> {} Bytes".format(file_path, archize_size))
     if result.failed:
