@@ -11,12 +11,13 @@ def do_deploy(archive_path):
         try:
             # Upload the archive to the /tmp/ directory
             # of the web server
-            put(archive_path, "/tmp/")
+
             # Uncompress the archive to the folder /dat/web_static
             # /releases/ on the web sserver
             file_name = archive_path.split("/")[-1]
             name = file_name.split(".")[0]
             path = "/data/web_static/releases/"
+            put(archive_path, "/tmp/{}".format(file_name))
             run("mkdir -p {}/".format(path, name))
             run("tar -xzf /tmp/{} -C {}/".format(file_name, path, name))
             # Delete the archive from the web server
