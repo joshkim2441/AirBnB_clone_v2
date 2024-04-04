@@ -11,11 +11,12 @@ def do_pack():
     """ Generates a .tgz archive from contents
     of the web_static folder
     """
-    time = datetime.now().strftime("%Y%m%d%H%M%S")
+    tm = datetime.now()
+    tm_ft = (tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
     if os.path.isdir("versions") is False:
         local("mkdir versions")
-    file_path = "versions/web_static_{}{}{}{}{}{}.tgz".format(time)
-    archize_size = os.stat(time).st_size
+    file_path = "versions/web_static_{}{}{}{}{}{}.tgz".format(tm_ft)
+    archize_size = os.stat(tm_ft).st_size
     result = local("tar -cvzf {} web_static".format(file_path))
     print("web_static packed: {} -> {} Bytes".format(file_path, archize_size))
     if result.failed:
