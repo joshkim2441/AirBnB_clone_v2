@@ -8,14 +8,15 @@ env.hosts = ['34.232.53.167', '54.89.195.92']
 
 def do_clean(number=0):
     """ Deletes out_of_date archives """
-    number = int(number)
-    if number < 2:
-        number = 1
-    else:
-        number += 1
+    number = 1 if int(number) == 0 else int(number)
 
-    paths = ["versions/*", "/data/web_static/releases/*"]
-    for path in paths:
-        cmd = ("ls -dt {} | tail -n {} | xargs rm -rf".
-        format(path, number))
-    local(cmd) if path == "versions/*" else run(cmd)
+    archives = sorted(os.listdir("versions"))
+    [archives.pop() for i in range(number)]
+    with lcd("versions"):
+        [local("rm ./{}".format(a)) for a in archives]
+
+    with cd("/data/web_static/releases"):
+        archives = run("ls -tr").split()
+        archives = [a for a in archives if "web_static_" in a]
+        [archives.pop() for i in range(number)]
+        [run("rm -rf ./{}".format(a)) for a in archives]
