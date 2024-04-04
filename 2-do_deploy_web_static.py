@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/python3
 from fabric.api import env, put, run
 from os.path import exists
 
@@ -17,16 +17,16 @@ def do_deploy(archive_path):
             file_name = archive_path.split("/")[-1]
             name = file_name.split(".")[0]
             path = "/data/web_static/releases/"
-            run("mkdir -p path{}/".format(name))
-            run("tar -xzf /tmp/{} -C path{}/".format(file_name, name))
+            run("mkdir -p {}/".format(path, name))
+            run("tar -xzf /tmp/{} -C {}/".format(file_name, path, name))
             # Delete the archive from the web server
             run("rm /tmp/{}".format(file_name))
-            run("mv path{}/web_static/* path{}/".format(name, name))
-            run("rm -rf path{}/web_static".format(name))
+            run("mv {}/web_static/* {}/".format(path, name, path, name))
+            run("rm -rf {}/web_static".format(path, name))
             # Delete the symbolic link /data/web_static/current from web server
             run("rm -rf /data/web_static/current")
             # Create a new symbolic link /data/web_static/current on web server
-            run("ln -s path{}/ /data/web_static/current".format(name))
+            run("ln -s {}/ /data/web_static/current".format(path, name))
             print("New version deployed!")
             return True
         except Exception:
