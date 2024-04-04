@@ -1,33 +1,31 @@
 #!/usr/bin/python3
-# Generates a .tgz archive from the contents of web_static
-# folder of AirBnB Clone repo using the function do_pack
+"""
+Fabric script based on the file 2-do_deploy_web_static.py that creates and
+distributes an archive to the web servers
+"""
 
-import os
-from fabric.api import *
+from fabric.api import env, local, put, run
 from datetime import datetime
-env.hosts = ['34.232.53.167', '54.89.195.92']
+from os.path import exists, isdir
+env.hosts = ['142.44.167.228', '144.217.246.195']
 
 
 def do_pack():
-    """ Generates a .tgz archive from contents
-    of the web_static folder
-    """
-    tm = datetime.now()
-    tm_ft = tm.strftime("%Y%m%d%H%M%S")
-    if not os.path.isdir("versions"):
-        local("mkdir versions")
-    file_path = "versions/web_static_{}.tgz".format(tm_ft)
-    result = local("tar -cvzf {} web_static".format(file_path))
-    if result.failed:
+    """generates a tgz archive"""
+    try:
+        date = datetime.now().strftime("%Y%m%d%H%M%S")
+        if isdir("versions") is False:
+            local("mkdir versions")
+        file_name = "versions/web_static_{}.tgz".format(date)
+        local("tar -cvzf {} web_static".format(file_name))
+        return file_name
+    except:
         return None
-    archize_size = os.stat(file_path).st_size
-    print("web_static packed: {} -> {} Bytes".format(file_path, archize_size))
-    return file_path
 
 
 def do_deploy(archive_path):
     """distributes an archive to the web servers"""
-    if os.path.exists(archive_path) is False:
+    if exists(archive_path) is False:
         return False
     try:
         file_n = archive_path.split("/")[-1]
@@ -42,12 +40,12 @@ def do_deploy(archive_path):
         run('rm -rf /data/web_static/current')
         run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
-    except Exception:
+    except:
         return False
 
 
 def deploy():
-    """ Creates and distributes an archive to web servers """
+    """creates and distributes an archive to the web servers"""
     archive_path = do_pack()
     if archive_path is None:
         return False
