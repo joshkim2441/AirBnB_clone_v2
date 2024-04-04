@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 # Generates a .tgz archive from the contents of web_static
 # folder of AirBnB Clone repo using the function do_pack
 
@@ -12,13 +12,13 @@ def do_pack():
     of the web_static folder
     """
     tm = datetime.now()
-    tm_ft = (tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
-    if os.path.isdir("versions") is False:
+    tm_ft = tm.strftime("%Y%m%d%H%M%S")
+    if not os.path.isdir("versions"):
         local("mkdir versions")
-    file_path = "versions/web_static_{}{}{}{}{}{}.tgz".format(tm_ft)
-    archize_size = os.stat(file_path).st_size
+    file_path = "versions/web_static_{}.tgz".format(tm_ft)
     result = local("tar -cvzf {} web_static".format(file_path))
-    print("web_static packed: {} -> {} Bytes".format(file_path, archize_size))
     if result.failed:
         return None
+    archize_size = os.stat(file_path).st_size
+    print("web_static packed: {} -> {} Bytes".format(file_path, archize_size))
     return file_path
