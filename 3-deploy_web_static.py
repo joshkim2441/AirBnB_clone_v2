@@ -13,11 +13,12 @@ env.hosts = ['34.232.53.167', '54.89.195.92']
 created_path = None
 
 
+@runs_once
 def do_pack():
     """
         generates a .tgz archine from contents of web_static
     """
-    time = datetime.utcnow().strftime('%Y%m%d%H%M%S')
+    time = datetime().strftime('%Y%m%d%H%M%S')
     file_name = "versions/web_static_{}.tgz".format(time)
     try:
         local("mkdir -p ./versions")
