@@ -34,6 +34,6 @@ def do_clean(number=0):
         archives = [a for a in archives if "web_static_" in a]
         if len(archives) > number:
             [archives.pop(0) for _ in range(len(archives) - number)]
-            [run("rm -rf ./{}".format(a)) for a in archives]
+            [run(" sudo rm -rf ./{}".format(a)) for a in archives]
 
     return True
