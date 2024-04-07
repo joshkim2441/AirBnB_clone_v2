@@ -9,15 +9,28 @@ env.key_filename = "~/id_rsa"
 
 def do_clean(number=0):
     """ Deletes out_of_date archives """
-    number = 1 if int(number) == 0 else int(number)
+    try:
+        number = int(number)
+    except ValueError:
+        print("The 'number' parameter must be an integer.")
+        return False
 
-    archives = sorted(os.listdir("versions"))
-    [archives.pop() for i in range(number)]
+    number = max(1, number)
+
+    try:
+        archives = sorted(os.listdir("versions"))
+    except FileNotFoundError:
+        print("The 'versions' directory does not exist.")
+        return False
+
+    [archives.pop() for _ in range(number)]
     with lcd("versions"):
         [local("rm ./{}".format(a)) for a in archives]
 
     with cd("/data/web_static/releases"):
         archives = run("ls -tr").split()
         archives = [a for a in archives if "web_static_" in a]
-        [archives.pop() for i in range(number)]
+        [archives.pop() for _ in range(number)]
         [run("rm -rf ./{}".format(a)) for a in archives]
+
+    return True

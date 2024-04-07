@@ -5,15 +5,11 @@ distributes an archive to the web servers
 """
 
 from fabric.api import *
-from fabric.operations import run, put, sudo, local
 from datetime import datetime
 import os
-
 env.hosts = ['34.232.53.167', '54.89.195.92']
-created_path = None
 
 
-@runs_once
 def do_pack():
     """ Generates a .tgz archive from contents
     of the web_static folder
@@ -26,14 +22,14 @@ def do_pack():
     result = local("tar -cvzf {} web_static".format(file_path))
     if result.failed:
         return None
-    archize_size = os.stat(file_path).st_size
-    print("web_static packed: {} -> {} Bytes".format(file_path, archize_size))
+    archive_size = os.stat(file_path).st_size
+    print("web_static packed: {} -> {} Bytes".format(file_path, archive_size))
     return file_path
 
 
 def do_deploy(archive_path):
     """distributes an archive to the web servers"""
-    if os.path.exists(archive_path) is False:
+    if not os.path.exists(archive_path):
         return False
     try:
         file_n = archive_path.split("/")[-1]
@@ -58,5 +54,6 @@ def deploy():
     """
     archive_path = do_pack()
     if archive_path is None:
+        print("do_pack failed")
         return False
     return do_deploy(archive_path)
