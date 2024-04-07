@@ -13,7 +13,6 @@ env.hosts = ['34.232.53.167', '54.89.195.92']
 created_path = None
 
 
-@runs_once
 def do_pack():
     """
         generates a .tgz archine from contents of web_static
