@@ -56,9 +56,7 @@ def deploy():
     """
         deploy function that creates/distributes an archive
     """
-    global created_path
-    if created_path is None:
-        created_path = do_pack()
-    if created_path is None:
+    archive_path = do_pack()
+    if archive_path is None:
         return False
-    return do_deploy(created_path)
+    return do_deploy(archive_path)
