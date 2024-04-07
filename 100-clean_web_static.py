@@ -3,9 +3,8 @@
 import os
 from fabric.api import *
 
-env.user = 'ubuntu'
 env.hosts = ['34.232.53.167', '54.89.195.92']
-env.key_filename = "~/id_rsa"
+
 
 def do_clean(number=0):
     """ Deletes out_of_date archives """
