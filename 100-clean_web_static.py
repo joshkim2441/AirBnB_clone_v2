@@ -31,7 +31,7 @@ def do_clean(number=0):
 
     with cd("/data/web_static/releases"):
         archives = run("ls -tr").split()
-        archives = [a for a in archives if "web_static_" in a]
+        archives = [a for a in archives if "/data/web_static_" in a]
         if len(archives) > number:
             [archives.pop(0) for _ in range(len(archives) - number)]
             [run("rm -rf ./{}".format(a)) for a in archives]
