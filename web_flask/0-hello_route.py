@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 # Starts a Flask web applicaton
-
 import flask
-
 app = flask.Flask(__name__)
 
 
