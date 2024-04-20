@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Starts a Flask web applicaton """
-import flask
-app = flask.Flask(__name__)
+from flask import Flask
+app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
