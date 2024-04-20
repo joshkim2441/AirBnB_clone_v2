@@ -17,14 +17,14 @@ def HBNB():
 
 
 @app.route("/c/<text>", strict_slashes=False)
-def text(text):
+def ctext(text):
     """ returns text given """
     return "C {}".format(text.replace("_", " "))
 
 
-@app.route("/python", defaults={'text': 'is cool'})
-@app.route("/python/text", strict_slashes=False)
-def display(text):
+@app.route("/python", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def display(text="is cool"):
     """ display 'python' followed by the
     value of the text
     """
