@@ -32,4 +32,5 @@ def display(text):
 
 
 if __name__ == "__main__":
+    """ Start the flask development server """
     app.run()
