@@ -33,11 +33,11 @@
 	display: none;
 	background-color: #FAFAFA;
 	width: 100%;
-	overflow-y: scroll;
+
 	margin-left: -1px;
 	margin-top: 8px;
 	padding: 25px 0px;
-	max-height: 300px;
+
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
 }
@@ -50,19 +50,14 @@
 	display: inline-block;
 }
 
-.amenities li {
-	margin: 12px auto 12px 30px;
-}
-
 ul {
 	list-style-type: none;
 	padding: 0px;
 	padding-bottom: 20px;
 }
 
-.locations li {
-	margin-bottom: 6px;
-}
+li {
+}	
 
 h2 {
 	font-size: 16px;
@@ -73,7 +68,7 @@ h2 {
 h3 {
 	font-weight: 600;
 	margin-top: 12px;
-	margin-bottom: 5px;
+	margin-bottom: 5px;	
 	padding-left: 45px;
 }
 
@@ -88,7 +83,7 @@ h4 {
 button {
 	color: #FFFFFF;
 	font-size: 18px;
-
+	
 	height: 48px;
 	width: 20%;
 	background-color: #FF5A5F;
